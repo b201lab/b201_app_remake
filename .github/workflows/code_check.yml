@@ -1,0 +1,15 @@
+name: Code Check
+on: 
+  push:
+      branches:
+        - main
+  pull_request: {}
+
+jobs:
+  build:
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
+    with:
+        coverage_excludes: "*.g.dart *.freezed.dart"
+        flutter_channel: stable
+        flutter_version: 3.3.3
+        analyze_directories: "lib"
