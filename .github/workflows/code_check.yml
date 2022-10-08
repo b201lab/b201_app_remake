@@ -12,3 +12,4 @@ jobs:
         coverage_excludes: "*.g.dart *.freezed.dart"
         flutter_channel: stable
         flutter_version: 3.3.3
+        analyze_directories: "lib"
