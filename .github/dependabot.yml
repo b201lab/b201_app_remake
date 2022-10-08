@@ -6,3 +6,5 @@ updates:
       - 'Itstor'
     schedule:
       interval: "weekly"
+    commit-message:
+      prefix: 'chore(deps): '
