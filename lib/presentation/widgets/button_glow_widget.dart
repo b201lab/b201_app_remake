@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ButtonGlowWidget extends StatelessWidget {
-  final title;
+  final String title;
   const ButtonGlowWidget({
     super.key,
     required this.title,

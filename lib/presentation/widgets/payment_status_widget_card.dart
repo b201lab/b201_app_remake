@@ -59,7 +59,7 @@ class PaymentStatusWidgetCard extends StatelessWidget {
                   height: 2,
                 ),
                 Text(
-                  'Tanggal Pembayaran: ${date}',
+                  'Tanggal Pembayaran: $date',
                   style: Get.textTheme.bodySmall,
                 )
               ],

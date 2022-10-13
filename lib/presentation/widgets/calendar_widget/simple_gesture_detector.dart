@@ -26,7 +26,7 @@ class SimpleGestureDetector extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _SimpleGestureDetectorState createState() => _SimpleGestureDetectorState();
+  State<SimpleGestureDetector> createState() => _SimpleGestureDetectorState();
 }
 
 class _SimpleGestureDetectorState extends State<SimpleGestureDetector> {
@@ -137,7 +137,6 @@ class _SimpleGestureDetectorState extends State<SimpleGestureDetector> {
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: widget.behavior,
-      child: widget.child,
       onVerticalDragStart: _canSwipeVertically() ? _onVerticalDragStart : null,
       onVerticalDragUpdate:
           _canSwipeVertically() ? _onVerticalDragUpdate : null,
@@ -148,6 +147,7 @@ class _SimpleGestureDetectorState extends State<SimpleGestureDetector> {
           _canSwipeHorizontally() ? _onHorizontalDragUpdate : null,
       onHorizontalDragEnd:
           _canSwipeHorizontally() ? _onHorizontalDragEnd : null,
+      child: widget.child,
     );
   }
 }
