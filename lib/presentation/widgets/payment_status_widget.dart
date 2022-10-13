@@ -12,6 +12,7 @@ class PaymentStatusWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //TODO: Pisah jadi widget card
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: 20,
