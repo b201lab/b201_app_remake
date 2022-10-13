@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:b201_app/presentation/widgets/riwayat_card_widget/currency_formatter.dart';
+import 'package:b201_app/app/utils/payment_utils.dart';
 
 class RiwayatItem extends StatelessWidget {
   const RiwayatItem(
@@ -25,7 +25,7 @@ class RiwayatItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                CurrencyFormat.convertToIdr(nominal, 0),
+                PaymentUtils.convertToIDR(nominal, 0),
                 style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'Poppins',
