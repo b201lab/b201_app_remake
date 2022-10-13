@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import './date_utils.dart';
-import './clean_calendar_event.dart';
-import "package:intl/intl.dart";
+import 'package:b201_app/app/utils/calendar_utils.dart';
+import 'package:b201_app/presentation/widgets/calendar_widget/clean_calendar_event.dart';
+import 'package:intl/intl.dart';
 
 /// [CalendarTile] is responsible for displaying one calendar event entry below
 /// the week view or the month view. The events are displayed in a list of [CalendarTile].
@@ -41,16 +41,17 @@ class CalendarTile extends StatelessWidget {
   //final Color? eventColor;
   final Color? eventDoneColor;
 
-  CalendarTile({
+  const CalendarTile({
+    super.key,
     this.onDateSelected,
     this.date,
     this.child,
     this.dateStyles,
     this.dayOfWeek,
     this.dayOfWeekStyle,
-    this.isDayOfWeek: false,
-    this.isSelected: false,
-    this.inMonth: true,
+    this.isDayOfWeek = false,
+    this.isSelected = false,
+    this.inMonth = true,
     this.events,
     this.selectedColor,
     this.todayColor,
@@ -66,8 +67,8 @@ class CalendarTile extends StatelessWidget {
     // We decide, if this calendar tile should display a day name in the header row. If this is the
     // case, we return a widget, that contains a text widget with style property [dayOfWeekStyle]
     if (isDayOfWeek) {
-      return new InkWell(
-        child: new Container(
+      return InkWell(
+        child: Container(
           alignment: Alignment.center,
           child: Text(
             dayOfWeek ?? '',
@@ -98,20 +99,20 @@ class CalendarTile extends StatelessWidget {
                       ? BoxDecoration(
                           shape: BoxShape.circle,
                           color: selectedColor != null
-                              ? Utils.isSameDay(this.date!, DateTime.now())
-                                  ? Color.fromARGB(255, 237, 29, 36)
+                              ? CalendarUtils.isSameDay(date!, DateTime.now())
+                                  ? const Color.fromARGB(255, 237, 29, 36)
                                   : selectedColor
                               : Theme.of(context).primaryColor,
                         )
-                      : BoxDecoration(), // no decoration when not selected
+                      : const BoxDecoration(), // no decoration when not selected
                   child: Text(
-                    date != null ? DateFormat("d").format(date!) : '',
+                    date != null ? DateFormat('d').format(date!) : '',
                     style: TextStyle(
                         fontSize: 14.0,
                         fontWeight: FontWeight.w400,
-                        color: isSelected && this.date != null
+                        color: isSelected && date != null
                             ? Colors.white
-                            : Utils.isSameDay(this.date!, DateTime.now())
+                            : CalendarUtils.isSameDay(date!, DateTime.now())
                                 ? todayColor
                                 : inMonth
                                     ? Colors.black
@@ -120,7 +121,7 @@ class CalendarTile extends StatelessWidget {
                   ),
                 ),
                 // line for the events
-                events != null && events!.length > 0
+                events != null && events!.isNotEmpty
                     ? Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: events!.map((event) {
@@ -128,7 +129,7 @@ class CalendarTile extends StatelessWidget {
                           // Show a maximum of 7 lines.
                           if (eventCount > 7) return Container();
                           return Container(
-                              margin: EdgeInsets.only(
+                              margin: const EdgeInsets.only(
                                   left: 15.0, right: 15.0, top: 1.0),
                               // width: 5.0,
                               height: 3,
@@ -167,8 +168,8 @@ class CalendarTile extends StatelessWidget {
     // be rendered to display weekday or date
     if (child != null) {
       return InkWell(
-        child: child,
         onTap: onDateSelected,
+        child: child,
       );
     }
     return Container(
