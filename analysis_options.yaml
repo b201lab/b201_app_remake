@@ -15,7 +15,6 @@ linter:
     use_decorated_box: true
     use_colored_box: true
     sort_child_properties_last: true
-    sort_constructors_first: true
     unnecessary_await_in_return: true
     sized_box_for_whitespace: true
     prefer_if_elements_to_conditional_expressions: true
