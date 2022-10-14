@@ -35,11 +35,13 @@ class ButtonGlowWidget extends StatelessWidget {
         ),
         child: Container(
           width: double.infinity,
-          padding: const EdgeInsets.symmetric(vertical: 12),
+          padding: const EdgeInsets.symmetric(vertical: 10),
           child: Center(
             child: Text(
               title,
-              style: Get.textTheme.button,
+              style: Get.textTheme.button!.copyWith(
+                color: ColorTheme.whiteColor,
+              ),
             ),
           ),
         ),
