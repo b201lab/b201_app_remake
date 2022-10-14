@@ -25,9 +25,11 @@ class _PilihBayarWidgetState extends State<PilihBayarWidget> {
         children: widget.model.map((entries) {
           return InkWell(
             onTap: () {
-              setState(() {
-                entries.isSelected = !entries.isSelected;
-              });
+              if (!entries.isPayed) {
+                setState(() {
+                  entries.isSelected = !entries.isSelected;
+                });
+              }
             },
             child: PilihBayarItem(
               month: entries.month,
