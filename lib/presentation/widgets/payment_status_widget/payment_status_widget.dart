@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class PaymentStatusWidgetCard extends StatelessWidget {
-  const PaymentStatusWidgetCard({
+class PaymentStatusWidget extends StatelessWidget {
+  final String date;
+  final bool isPaid;
+  const PaymentStatusWidget({
     super.key,
     required this.date,
     required this.isPaid,
   });
-
-  final String date;
-  final bool isPaid;
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +58,7 @@ class PaymentStatusWidgetCard extends StatelessWidget {
                   height: 2,
                 ),
                 Text(
-                  'Tanggal Pembayaran: ${date}',
+                  'Tanggal Pembayaran: $date',
                   style: Get.textTheme.bodySmall,
                 )
               ],

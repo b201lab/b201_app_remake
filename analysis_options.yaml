@@ -2,6 +2,7 @@ include: package:flutter_lints/flutter.yaml
 
 linter:
   rules:
+    avoid_function_literals_in_foreach_calls: false
     prefer_single_quotes: true
     always_use_package_imports: true
     use_is_even_rather_than_modulo: true
@@ -11,14 +12,11 @@ linter:
     unnecessary_parenthesis: true
     unnecessary_overrides: true
     unnecessary_lambdas: true
-    use_named_constants: true
     use_decorated_box: true
     use_colored_box: true
     sort_child_properties_last: true
-    sort_constructors_first: true
     unnecessary_await_in_return: true
     sized_box_for_whitespace: true
-    prefer_if_elements_to_conditional_expressions: true
     prefer_foreach: true
     avoid_unnecessary_containers: true
     avoid_bool_literals_in_conditional_expressions: true
