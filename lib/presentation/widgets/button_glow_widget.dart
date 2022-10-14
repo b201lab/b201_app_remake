@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ButtonGlowWidget extends StatelessWidget {
-  final title;
   const ButtonGlowWidget({
     super.key,
     required this.title,
   });
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +35,13 @@ class ButtonGlowWidget extends StatelessWidget {
         ),
         child: Container(
           width: double.infinity,
-          padding: const EdgeInsets.symmetric(vertical: 12),
+          padding: const EdgeInsets.symmetric(vertical: 10),
           child: Center(
             child: Text(
               title,
-              style: Get.textTheme.button,
+              style: Get.textTheme.button!.copyWith(
+                color: ColorTheme.whiteColor,
+              ),
             ),
           ),
         ),
