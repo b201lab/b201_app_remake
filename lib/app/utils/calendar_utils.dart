@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 
-class Utils {
+class CalendarUtils {
   static final DateFormat _monthFormat = DateFormat('MMM yyyy');
   static final DateFormat _dayFormat = DateFormat('dd');
   static final DateFormat _firstDayFormat = DateFormat('MMM dd');
@@ -32,7 +32,7 @@ class Utils {
     var first = firstDayOfMonth(month);
     var daysBefore = first.weekday;
     var firstToDisplay = first.subtract(Duration(days: daysBefore));
-    var last = Utils.lastDayOfMonth(month);
+    var last = CalendarUtils.lastDayOfMonth(month);
 
     var daysAfter = 7 - last.weekday;
 
@@ -84,7 +84,7 @@ class Utils {
     var beginningNextMonth = (month.month < 12)
         ? DateTime(month.year, month.month + 1, 1)
         : DateTime(month.year + 1, 1, 1);
-    return beginningNextMonth.subtract(Duration(days: 1));
+    return beginningNextMonth.subtract(const Duration(days: 1));
   }
 
   /// Returns a [DateTime] for each day the given range.
@@ -96,7 +96,7 @@ class Utils {
     var offset = start.timeZoneOffset;
     while (i.isBefore(end)) {
       yield i;
-      i = i.add(Duration(days: 1));
+      i = i.add(const Duration(days: 1));
       var timeZoneDiff = i.timeZoneOffset - offset;
       if (timeZoneDiff.inSeconds != 0) {
         offset = i.timeZoneOffset;
@@ -153,10 +153,10 @@ class Utils {
   }
 
   static DateTime previousWeek(DateTime w) {
-    return w.subtract(Duration(days: 7));
+    return w.subtract(const Duration(days: 7));
   }
 
   static DateTime nextWeek(DateTime w) {
-    return w.add(Duration(days: 7));
+    return w.add(const Duration(days: 7));
   }
 }
