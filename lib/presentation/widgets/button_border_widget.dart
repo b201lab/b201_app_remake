@@ -16,7 +16,7 @@ class ButtonBorderWidget extends StatelessWidget {
         style: ButtonStyle(
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(24),
               side: const BorderSide(
                 width: 2,
                 color: ColorTheme.blackColor,
@@ -35,14 +35,14 @@ class ButtonBorderWidget extends StatelessWidget {
               children: [
                 Image.asset(
                   'assets/images/Google.png',
-                  width: 20,
+                  width: 22,
                 ),
                 const SizedBox(
                   width: 10,
                 ),
                 Text(
                   'Masuk dengan Google',
-                  style: Get.textTheme.button,
+                  style: Get.textTheme.button!.copyWith(fontSize: 14),
                 )
               ],
             ),
