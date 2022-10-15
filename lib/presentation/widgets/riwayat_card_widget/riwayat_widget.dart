@@ -12,23 +12,26 @@ class RiwayatWidget extends StatelessWidget {
       height: entries.length * 70,
       margin: const EdgeInsets.only(left: 20, right: 20),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(18),
-          color: Colors.white,
-          boxShadow: const [
-            BoxShadow(
-                color: Color.fromARGB(10, 0, 0, 0),
-                offset: Offset.zero,
-                spreadRadius: 10,
-                blurRadius: 90),
-          ]),
+        borderRadius: BorderRadius.circular(18),
+        color: Colors.white,
+        boxShadow: const [
+          BoxShadow(
+            color: Color.fromARGB(10, 0, 0, 0),
+            offset: Offset.zero,
+            spreadRadius: 10,
+            blurRadius: 90,
+          ),
+        ],
+      ),
       child: ListView.separated(
         padding: const EdgeInsets.all(8),
         itemCount: entries.length,
         itemBuilder: (BuildContext context, int index) {
           return RiwayatItem(
-              nominal: entries[index].nominal,
-              date: entries[index].date,
-              isConfirmed: entries[index].isConfirmed);
+            nominal: entries[index].nominal,
+            date: entries[index].date,
+            isConfirmed: entries[index].isConfirmed,
+          );
         },
         separatorBuilder: (BuildContext context, int index) => const Divider(),
       ),

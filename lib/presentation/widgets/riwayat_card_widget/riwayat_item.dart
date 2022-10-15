@@ -4,12 +4,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:b201_app/app/utils/payment_utils.dart';
 
 class RiwayatItem extends StatelessWidget {
-  const RiwayatItem(
-      {Key? key,
-      required this.nominal,
-      required this.date,
-      required this.isConfirmed})
-      : super(key: key);
+  const RiwayatItem({
+    Key? key,
+    required this.nominal,
+    required this.date,
+    required this.isConfirmed,
+  }) : super(key: key);
   final int nominal;
   final String date;
   final bool isConfirmed;

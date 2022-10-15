@@ -1,6 +1,10 @@
 class PilihBayarModel {
-  PilihBayarModel(this.month, this.year, this.isPayed,
-      {this.isSelected = false});
+  PilihBayarModel(
+    this.month,
+    this.year,
+    this.isPayed, {
+    this.isSelected = false,
+  });
   int month;
   int year;
   bool isPayed;

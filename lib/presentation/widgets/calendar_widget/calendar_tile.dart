@@ -108,16 +108,16 @@ class CalendarTile extends StatelessWidget {
                   child: Text(
                     date != null ? DateFormat('d').format(date!) : '',
                     style: TextStyle(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w400,
-                        color: isSelected && date != null
-                            ? Colors.white
-                            : CalendarUtils.isSameDay(date!, DateTime.now())
-                                ? todayColor
-                                : inMonth
-                                    ? Colors.black
-                                    : Colors
-                                        .grey), // Grey color for previous or next months dates
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w400,
+                      color: isSelected && date != null
+                          ? Colors.white
+                          : CalendarUtils.isSameDay(date!, DateTime.now())
+                              ? todayColor
+                              : inMonth
+                                  ? Colors.black
+                                  : Colors.grey,
+                    ), // Grey color for previous or next months dates
                   ),
                 ),
                 // line for the events
@@ -129,30 +129,35 @@ class CalendarTile extends StatelessWidget {
                           // Show a maximum of 7 lines.
                           if (eventCount > 7) return Container();
                           return Container(
-                              margin: const EdgeInsets.only(
-                                  left: 15.0, right: 15.0, top: 1.0),
-                              // width: 5.0,
-                              height: 3,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  // If event is done (isDone == true) set the color of the dots to
-                                  // the eventDoneColor (if given) otherwise use the primary color of
-                                  // the theme
-                                  // If the event is now donw yet, we use the given eventColor or the
-                                  // color property of the CleanCalendarEvent. If both aren't set, then
-                                  // the accent color of the theme get used.
-                                  color: events![eventCount - 1].color //(() {
-                                  //             if (event.isDone)
-                                  //             return eventDoneColor ??
-                                  //                 Theme.of(context).primaryColor;
-                                  //           if (isSelected)
-                                  //            Theme.of(context)
-                                  //                .primaryColor; //return Colors.white;
-                                  /// return eventColor ??
-                                  // Theme.of(context).accentColor;
-                                  // }())),
-                                  ));
-                        }).toList())
+                            margin: const EdgeInsets.only(
+                              left: 15.0,
+                              right: 15.0,
+                              top: 1.0,
+                            ),
+                            // width: 5.0,
+                            height: 3,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              // If event is done (isDone == true) set the color of the dots to
+                              // the eventDoneColor (if given) otherwise use the primary color of
+                              // the theme
+                              // If the event is now donw yet, we use the given eventColor or the
+                              // color property of the CleanCalendarEvent. If both aren't set, then
+                              // the accent color of the theme get used.
+                              color: events![eventCount - 1].color, //(() {
+                              //             if (event.isDone)
+                              //             return eventDoneColor ??
+                              //                 Theme.of(context).primaryColor;
+                              //           if (isSelected)
+                              //            Theme.of(context)
+                              //                .primaryColor; //return Colors.white;
+                              /// return eventColor ??
+                              // Theme.of(context).accentColor;
+                              // }())),
+                            ),
+                          );
+                        }).toList(),
+                      )
                     : Container(),
               ],
             ),
