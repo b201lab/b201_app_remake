@@ -21,3 +21,4 @@ linter:
     avoid_unnecessary_containers: true
     avoid_bool_literals_in_conditional_expressions: true
     use_key_in_widget_constructors: true
+    require_trailing_commas: true
