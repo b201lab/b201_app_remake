@@ -3,10 +3,11 @@ import 'package:b201_app/presentation/widgets/pilih_bayar_widget/pilih_bayar_mod
 import 'package:flutter/material.dart';
 
 class PilihBayarWidget extends StatefulWidget {
-  PilihBayarWidget({Key? key}) : super(key: key);
   final List<PilihBayarModel> model = modelBayar;
+
+  PilihBayarWidget({Key? key}) : super(key: key);
   @override
-  _PilihBayarWidgetState createState() => _PilihBayarWidgetState();
+  State<PilihBayarWidget> createState() => _PilihBayarWidgetState();
 }
 
 class _PilihBayarWidgetState extends State<PilihBayarWidget> {
