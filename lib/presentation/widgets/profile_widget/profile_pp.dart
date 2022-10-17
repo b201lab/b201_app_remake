@@ -9,8 +9,9 @@ class ProfilePP extends StatelessWidget {
       alignment: Alignment.bottomRight,
       children: [
         const CircleAvatar(
-            radius: 60,
-            backgroundImage: NetworkImage('https://via.placeholder.com/150')),
+          radius: 60,
+          backgroundImage: NetworkImage('https://via.placeholder.com/150'),
+        ),
         FloatingActionButton.small(
           onPressed: () {},
           backgroundColor: Colors.red,

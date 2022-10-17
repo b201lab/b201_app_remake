@@ -25,7 +25,7 @@ class ProfileBar extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'eaTai',
+                'eaTaiiiii',
                 style: Get.textTheme.caption
                     ?.copyWith(fontSize: 14, fontWeight: FontWeight.w300),
               ),
