@@ -1,5 +1,8 @@
 library flutter_clean_calendar;
 
+import 'dart:html';
+
+import 'package:b201_app/presentation/widgets/calendar_widget/event_item.dart';
 import 'package:flutter/material.dart';
 import 'package:b201_app/presentation/widgets/calendar_widget/simple_gesture_detector.dart';
 import 'package:b201_app/presentation/widgets/calendar_widget/calendar_tile.dart';
@@ -7,6 +10,7 @@ import 'package:b201_app/presentation/widgets/calendar_widget/clean_calendar_eve
 import 'package:b201_app/app/utils/calendar_utils.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:collection/collection.dart';
 
 // Export NeatCleanCalendarEvent for using it in the application
 export './clean_calendar_event.dart';
@@ -92,6 +96,7 @@ class Calendar extends StatefulWidget {
   final bool startOnMonday;
   final bool hideBottomBar;
   final TextStyle? dayOfWeekStyle;
+  final TextStyle? dateStyles;
   final TextStyle? bottomBarTextStyle;
   final Color? bottomBarArrowColor;
   final Color? bottomBarColor;
@@ -136,6 +141,7 @@ class Calendar extends StatefulWidget {
     this.locale = 'en_US',
     this.startOnMonday = false,
     this.dayOfWeekStyle,
+    this.dateStyles,
     this.bottomBarTextStyle,
     this.bottomBarArrowColor,
     this.bottomBarColor,
@@ -156,10 +162,12 @@ class _CalendarState extends State<Calendar> {
   String displayMonth = '';
   DateTime get selectedDate => _selectedDate;
   List<CleanCalendarEvent>? _selectedEvents;
+  List<CleanCalendarEvent>? _selectedCloseEvents;
 
   @override
   void initState() {
     super.initState();
+
     isExpanded = widget.isExpanded;
     _selectedDate = widget.initialDate ?? DateTime.now();
     selectedMonthsDays = _daysInMonth(_selectedDate);
@@ -177,6 +185,20 @@ class _CalendarState extends State<Calendar> {
     _selectedEvents = widget.events?[DateTime(
             _selectedDate.year, _selectedDate.month, _selectedDate.day)] ??
         [];
+  }
+
+  List<CleanCalendarEvent>? getCloseEvent() {
+    List<CleanCalendarEvent>? selected;
+    DateTime selectedTime = DateTime.now();
+    final recentSunday = DateTime(2022, 11, 1);
+    final nextSunday = DateTime(2022, 11, 30);
+    widget.events?.forEach((key, value) {
+      if (key.compareTo(recentSunday) >= 0 && key.compareTo(nextSunday) <= 0) {
+        selected?.addAll(value);
+      }
+    });
+    print(selected);
+    return selected;
   }
 
   Widget get nameAndIconRow {
@@ -216,9 +238,10 @@ class _CalendarState extends State<Calendar> {
             todayIcon,
             Text(
               displayMonth,
-              style: const TextStyle(
-                fontSize: 20.0,
-              ),
+              style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w800),
             ),
           ],
         ),
@@ -228,7 +251,17 @@ class _CalendarState extends State<Calendar> {
   }
 
   Widget get calendarGridView {
-    return SimpleGestureDetector(
+    return Column(children: <Widget>[
+      GridView.count(
+        childAspectRatio: 0.8, //ubah besar grid
+        primary: false,
+        shrinkWrap: true,
+        crossAxisCount: 7,
+        padding: const EdgeInsets.only(bottom: 0.0),
+        children: calendarBuilder(),
+      ),
+    ]);
+    /* return SimpleGestureDetector(
       onSwipeUp: _onSwipeUp,
       onSwipeDown: _onSwipeDown,
       onSwipeLeft: _onSwipeLeft,
@@ -248,7 +281,7 @@ class _CalendarState extends State<Calendar> {
           children: calendarBuilder(),
         ),
       ]),
-    );
+    );*/
   }
 
   List<Widget> calendarBuilder() {
@@ -266,6 +299,8 @@ class _CalendarState extends State<Calendar> {
             events: widget.events![day],
             isDayOfWeek: true,
             dayOfWeek: day,
+            dateStyles:
+                widget.dateStyles ?? Theme.of(context).textTheme.subtitle1,
             dayOfWeekStyle: widget.dayOfWeekStyle ??
                 TextStyle(
                   color: widget.selectedColor,
@@ -394,6 +429,25 @@ class _CalendarState extends State<Calendar> {
     }
   }
 
+  Widget get closeEventList {
+    List<CleanCalendarEvent>? selected = getCloseEvent();
+    return Expanded(
+      child: selected != null && selected.isNotEmpty
+          ? ListView.builder(
+              padding: const EdgeInsets.only(),
+              itemBuilder: (BuildContext context, int index) {
+                final CleanCalendarEvent event = selected[index];
+
+                return EventItem(
+                  event: event,
+                );
+              },
+              itemCount: selected.length,
+            )
+          : Container(),
+    );
+  }
+
   Widget get eventList {
     if (widget.eventListBuilder == null) {
       return Expanded(
@@ -402,11 +456,10 @@ class _CalendarState extends State<Calendar> {
                 padding: const EdgeInsets.only(),
                 itemBuilder: (BuildContext context, int index) {
                   final CleanCalendarEvent event = _selectedEvents![index];
-                  final String start =
-                      DateFormat('HH:mm').format(event.startTime).toString();
-                  final String end =
-                      DateFormat('HH:mm').format(event.endTime).toString();
-                  return SizedBox(
+
+                  return EventItem(
+                    event: event,
+                  ); /*SizedBox(
                     height: 60.0,
                     child: InkWell(
                       onTap: () {
@@ -466,7 +519,7 @@ class _CalendarState extends State<Calendar> {
                         ],
                       ),
                     ),
-                  );
+                  );*/
                 },
                 itemCount: _selectedEvents!.length,
               )
@@ -480,25 +533,42 @@ class _CalendarState extends State<Calendar> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        nameAndIconRow,
-        ExpansionCrossFade(
-          collapsed: calendarGridView,
-          expanded: calendarGridView,
-          isExpanded: isExpanded,
-        ),
-        expansionButtonRow,
-        eventList
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          nameAndIconRow,
+          ExpansionCrossFade(
+            collapsed: calendarGridView,
+            expanded: calendarGridView,
+            isExpanded: isExpanded,
+          ),
+          Text(
+            'Today Event',
+            style: Theme.of(context).textTheme.headline2?.copyWith(
+                color: Colors.black, fontSize: 20, fontWeight: FontWeight.w800),
+          ),
+          // expansionButtonRow, //  untuk expanse
+          eventList,
+          closeEventList
+          //  Text(
+          //    'Kegiatan Terdekat',
+          //    style: Theme.of(context).textTheme.headline2?.copyWith(
+          //        color: Colors.black, fontSize: 20, fontWeight: FontWeight.w800),
+          //  ),
+        ],
+      ),
     );
   }
 
   /// The function [resetToToday] is called on tap on the Today button in the top
   /// position of the screen. It re-caclulates the range of dates, so that the
   /// month view or week view changes to a range containing the current day.
+  ///
+
   void resetToToday() {
     _selectedDate = DateTime.now();
     var firstDayOfCurrentWeek = _firstDayOfWeek(_selectedDate);
@@ -720,6 +790,7 @@ class _CalendarState extends State<Calendar> {
   }
 }
 
+///Untuk expanse
 class ExpansionCrossFade extends StatelessWidget {
   final Widget collapsed;
   final Widget expanded;

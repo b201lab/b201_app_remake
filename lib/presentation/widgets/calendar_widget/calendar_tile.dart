@@ -72,7 +72,7 @@ class CalendarTile extends StatelessWidget {
           alignment: Alignment.center,
           child: Text(
             dayOfWeek ?? '',
-            style: dayOfWeekStyle,
+            style: dayOfWeekStyle!.copyWith(color: Colors.grey),
           ),
         ),
       );
@@ -91,7 +91,7 @@ class CalendarTile extends StatelessWidget {
               children: <Widget>[
                 // Date display
                 Container(
-                  padding: const EdgeInsets.all(3),
+                  padding: const EdgeInsets.all(2),
                   margin: const EdgeInsets.only(bottom: 2),
                   // If this tile is the selected date, draw a colored circle on it. The circle is filled with
                   // the color passed with the selectedColor parameter or red color.
@@ -108,8 +108,8 @@ class CalendarTile extends StatelessWidget {
                   child: Text(
                     date != null ? DateFormat('d').format(date!) : '',
                     style: TextStyle(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w400,
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w500,
                         color: isSelected && date != null
                             ? Colors.white
                             : CalendarUtils.isSameDay(date!, DateTime.now())
